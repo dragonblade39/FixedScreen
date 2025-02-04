@@ -103,31 +103,32 @@ const TreeView = () => {
         await fetchChildNodes(node.label);
       }
   
-      setExpandedNodes(prev => {
-        const newState = { ...prev };
-        const closedNodes = {}; // Track nodes that have been closed
+      const closedNodesSet = new Set(); // Using a Set to ensure unique log entries
   
-        // Collapse all sibling nodes and log the action
-        for (const sibling of siblings) {
-          if (sibling.label !== node.label) {
-            if (!closedNodes[sibling.label]) { // Only log if this sibling hasn't been logged as closed yet
-              collapseTree(sibling, newState);
-              // Log the close and mark it as logged
-              closedNodes[sibling.label] = true; // Mark it as logged
-              logToFile(`Toggling node: ${sibling.label} closed due to expanding ${node.label}`); // No await here
-            }
+      const newState = {
+        ...expandedNodes, 
+        [node.label]: true // Expanding the clicked node
+      };
+  
+      // Iterate over siblings and collapse them
+      for (const sibling of siblings) {
+        if (sibling.label !== node.label) {
+          // Only log if this sibling hasn't been closed before
+          if (!closedNodesSet.has(sibling.label)) {
+            collapseTree(sibling, newState);
+  
+            // Log the collapse action for the sibling node
+            await logToFile(`Toggling node: ${sibling.label} closed due to expanding ${node.label}`);
+            closedNodesSet.add(sibling.label); // Mark it as logged
           }
         }
-        
-        newState[node.label] = true; // Mark the current node as expanded
-        return newState;
-      });
+      }
+  
+      setExpandedNodes(newState); // State update is called once after all changes
     } else {
-      setExpandedNodes(prev => {
-        const newState = { ...prev };
-        collapseTree(node, newState);
-        return newState;
-      });
+      const newState = { ...expandedNodes };
+      collapseTree(node, newState);
+      setExpandedNodes(newState); // Close the node
     }
   };
 
