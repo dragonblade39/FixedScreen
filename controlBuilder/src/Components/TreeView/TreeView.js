@@ -105,21 +105,21 @@ const TreeView = () => {
   
       setExpandedNodes(prev => {
         const newState = { ...prev };
-        // Keep track of already-closed nodes
-        const closedNodes = {};
+        const closedNodes = {}; // Track nodes that have been closed
   
         // Collapse all sibling nodes and log the action
-        siblings.forEach(sibling => {
-          if (sibling.label !== node.label && !closedNodes[sibling.label]) {
-            // Collapse the sibling node
-            collapseTree(sibling, newState);
-            // Mark the node as closed and log the closure
-            closedNodes[sibling.label] = true;
-            await logToFile(`Toggling node: ${sibling.label} closed due to expanding ${node.label}`);
+        for (const sibling of siblings) {
+          if (sibling.label !== node.label) {
+            if (!closedNodes[sibling.label]) { // Only log if this sibling hasn't been logged as closed yet
+              collapseTree(sibling, newState);
+              // Log the close and mark it as logged
+              closedNodes[sibling.label] = true; // Mark it as logged
+              logToFile(`Toggling node: ${sibling.label} closed due to expanding ${node.label}`); // No await here
+            }
           }
-        });
+        }
         
-        newState[node.label] = true;  // Mark the current node as expanded
+        newState[node.label] = true; // Mark the current node as expanded
         return newState;
       });
     } else {
