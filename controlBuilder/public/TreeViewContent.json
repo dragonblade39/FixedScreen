@@ -1,0 +1,111 @@
+[
+  {
+    "label": "Root",
+    "children": [
+      {
+        "label": "C300_262",
+        "children": [
+          {
+            "label": "CEEC300_155",
+            "children": [
+              {
+                "label": "SCM_grid"
+              }
+            ]
+          },
+          {
+            "label": "IOLINK_153",
+            "children": [
+              { "label": "AO_203" },
+              { "label": "DI-HV_169" },
+              { "label": "UIO-2_221" }
+            ]
+          },
+          {
+            "label": "IOLINK_154"
+          }
+        ],
+        "link": "/screen2"
+      },
+      {
+        "label": "C300_sim",
+        "children": [
+          {
+            "label": "CEEC300_1551",
+            "children": [
+              {
+                "label": "SCM_grid1"
+              }
+            ]
+          },
+          {
+            "label": "IOLINK_1531",
+            "children": [
+              { "label": "AO_2031" },
+              { "label": "DI-HV_1691" },
+              { "label": "UIO-2_2211" }
+            ]
+          },
+          {
+            "label": "IOLINK_1541"
+          }
+        ],
+        "link": "/screen3"
+      },
+      {
+        "label": "FIM4_299",
+        "children": [
+          {
+            "label": "Child1"
+          },
+          {
+            "label": "Child2"
+          }
+        ],
+        "link": "/screen4"
+      },
+      {
+        "label": "Unassigned",
+        "children": [
+          {
+            "label": "example_c300pm_pidpla"
+          },
+          {
+            "label": "example_cascade"
+          },
+          {
+            "label": "example_IORef"
+          },
+          {
+            "label": "example_motor"
+          },
+          {
+            "label": "example_pid"
+          },
+          {
+            "label": "example_pidloop"
+          },
+          {
+            "label": "example_c300pm_pidpla1"
+          },
+          {
+            "label": "example_cascade1"
+          },
+          {
+            "label": "example_IORef1"
+          },
+          {
+            "label": "example_motor1"
+          },
+          {
+            "label": "example_pid1"
+          },
+          {
+            "label": "example_pidloop1"
+          }
+        ],
+        "link": "/screen5"
+      }
+    ]
+  }
+]
